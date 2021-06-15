@@ -6,12 +6,12 @@ import java.util.Map;
 
 
 @RestController
-public class Controller {
+public class SeatsController {
 
     private final Cinema cinema = new Cinema(9, 9);
 
     @GetMapping("/seats")
-    public Map<String, ?> getSeats() {
+    public Map<String, ?> getCinema() {
         return Map.of(
                 "total_rows", cinema.getTotalRows(),
                 "total_columns", cinema.getTotalColumns(),
@@ -23,6 +23,7 @@ public class Controller {
     public Map<String, ?> postSeats(@RequestBody Seat seat) {
         int row = seat.getRow();
         int column = seat.getColumn();
+
         if (row > 9 || row < 1 || column > 9 || column < 1) {
             // return error
             throw new SeatNotAvailableException("The number of a row or a column is out of bounds!");

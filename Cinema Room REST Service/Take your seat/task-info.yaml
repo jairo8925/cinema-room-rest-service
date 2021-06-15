@@ -307,7 +307,16 @@ files:
         }
     }
   learner_created: true
-- name: src/cinema/Controller.java
+- name: src/cinema/SeatNotAvailableException.java
+  visible: true
+  learner_created: true
+- name: src/cinema/Error.java
+  visible: true
+  learner_created: true
+- name: src/cinema/ErrorController.java
+  visible: true
+  learner_created: true
+- name: src/cinema/SeatsController.java
   visible: true
   text: |
     package cinema;
@@ -324,18 +333,9 @@ files:
         }
     }
   learner_created: true
-- name: src/cinema/MessageController.java
-  visible: true
-  learner_created: true
-- name: src/cinema/SeatNotAvailableException.java
-  visible: true
-  learner_created: true
-- name: src/cinema/Error.java
-  visible: true
-  learner_created: true
 feedback_link: https://hyperskill.org/projects/189/stages/946/implement#comment
 status: Solved
 feedback:
   message: Congratulations!
-  time: Tue, 15 Jun 2021 11:07:15 UTC
+  time: Tue, 15 Jun 2021 11:12:07 UTC
 record: 2

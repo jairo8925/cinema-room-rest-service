@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class SeatNotAvailableException extends RuntimeException {
 
+    SeatNotAvailableException() {
+        super();
+    }
+
     SeatNotAvailableException(String message) {
         super(message);
     }

@@ -26,7 +26,8 @@ public class Cinema {
         List<Seat> seats = new ArrayList<>();
         for (int i = 1; i <= totalRows; i++) {
             for (int j = 1; j <= totalColumns; j++) {
-                seats.add(new Seat(i, j));
+                Seat seat = new Seat(i, j);
+                seats.add(seat);
             }
         }
         return seats;

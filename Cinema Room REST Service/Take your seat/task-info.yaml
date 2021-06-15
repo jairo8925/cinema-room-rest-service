@@ -213,6 +213,129 @@ files:
         };
     }
   learner_created: false
+- name: src/cinema/Seat.java
+  visible: true
+  text: |
+    package cinema;
+
+    public class Seat {
+
+        private int row;
+        private int column;
+
+        public Seat(int row, int column) {
+            this.row = row;
+            this.column = column;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int getColumn() {
+            return column;
+        }
+
+        public void setRow(int row) {
+            this.row = row;
+        }
+
+        public void setColumn(int column) {
+            this.column = column;
+        }
+    }
+  learner_created: true
+- name: src/cinema/Cinema.java
+  visible: true
+  text: |
+    package cinema;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    import java.util.ArrayList;
+    import java.util.List;
+
+    public class Cinema {
+
+        @JsonProperty("total_rows")
+        private int totalRows;
+
+        @JsonProperty("total_columns")
+        private int totalColumns;
+
+        @JsonProperty("available_seats")
+        private List<Seat> availableSeats;
+
+        public Cinema(int totalRows, int totalColumns) {
+            this.totalRows = totalRows;
+            this.totalColumns = totalColumns;
+            this.availableSeats = fillSeats();
+        }
+
+        private List<Seat> fillSeats() {
+            List<Seat> seats = new ArrayList<>();
+            for (int i = 1; i <= totalRows; i++) {
+                for (int j = 1; j <= totalColumns; j++) {
+                    seats.add(new Seat(i, j));
+                }
+            }
+            return seats;
+        }
+
+        public int getTotalRows() {
+            return totalRows;
+        }
+
+        public int getTotalColumns() {
+            return totalColumns;
+        }
+
+        public List<Seat> getAvailableSeats() {
+            return availableSeats;
+        }
+
+        public void setTotalRows(int totalRows) {
+            this.totalRows = totalRows;
+        }
+
+        public void setTotalColumns(int totalColumns) {
+            this.totalColumns = totalColumns;
+        }
+
+        public void setAvailableSeats(List<Seat> availableSeats) {
+            this.availableSeats = availableSeats;
+        }
+    }
+  learner_created: true
+- name: src/cinema/Controller.java
+  visible: true
+  text: |
+    package cinema;
+
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.RestController;
+
+    @RestController
+    public class Controller {
+
+        @GetMapping("/seats")
+        public Cinema getCinema() {
+            return new Cinema(9, 9);
+        }
+    }
+  learner_created: true
+- name: src/cinema/MessageController.java
+  visible: true
+  learner_created: true
+- name: src/cinema/SeatNotAvailableException.java
+  visible: true
+  learner_created: true
+- name: src/cinema/Error.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/189/stages/946/implement#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Tue, 15 Jun 2021 11:07:15 UTC
+record: 2

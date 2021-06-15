@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cinema_Room_REST_Service.iml" filepath="$PROJECT_DIR$/.idea/modules/Cinema_Room_REST_Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cinema Room REST Service/task/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task.iml" filepath="$PROJECT_DIR$/.idea/modules/Cinema Room REST Service/task/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cinema Room REST Service/task/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Cinema Room REST Service/task/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cinema Room REST Service/task/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Cinema Room REST Service/task/Cinema_Room_REST_Service.Cinema_Room_REST_Service-task.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Correct the usage of non-generic class/Cinema_Room_REST_Service.Topics-Generics_and_Object-Correct_the_usage_of_non-generic_class.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Correct the usage of non-generic class/Cinema_Room_REST_Service.Topics-Generics_and_Object-Correct_the_usage_of_non-generic_class.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Correct the usage of non-generic class/Cinema_Room_REST_Service.Topics-Generics_and_Object-Correct_the_usage_of_non-generic_class.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Correct the usage of non-generic class/Cinema_Room_REST_Service.Topics-Generics_and_Object-Correct_the_usage_of_non-generic_class.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Correct the usage of non-generic class/Cinema_Room_REST_Service.Topics-Generics_and_Object-Correct_the_usage_of_non-generic_class.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Correct the usage of non-generic class/Cinema_Room_REST_Service.Topics-Generics_and_Object-Correct_the_usage_of_non-generic_class.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Theory/Cinema_Room_REST_Service.Topics-Generics_and_Object-Theory.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Theory/Cinema_Room_REST_Service.Topics-Generics_and_Object-Theory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Theory/Cinema_Room_REST_Service.Topics-Generics_and_Object-Theory.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Theory/Cinema_Room_REST_Service.Topics-Generics_and_Object-Theory.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Theory/Cinema_Room_REST_Service.Topics-Generics_and_Object-Theory.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Topics/Generics and Object/Theory/Cinema_Room_REST_Service.Topics-Generics_and_Object-Theory.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Cinema_Room_REST_Service.util.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Cinema_Room_REST_Service.util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Cinema_Room_REST_Service.util.main.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Cinema_Room_REST_Service.util.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Cinema_Room_REST_Service.util.test.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Cinema_Room_REST_Service.util.test.iml" />
+    </modules>
+  </component>
+</project>

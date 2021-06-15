@@ -316,26 +316,12 @@ files:
 - name: src/cinema/ErrorController.java
   visible: true
   learner_created: true
-- name: src/cinema/SeatsController.java
+- name: src/cinema/CinemaController.java
   visible: true
-  text: |
-    package cinema;
-
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.RestController;
-
-    @RestController
-    public class Controller {
-
-        @GetMapping("/seats")
-        public Cinema getCinema() {
-            return new Cinema(9, 9);
-        }
-    }
   learner_created: true
 feedback_link: https://hyperskill.org/projects/189/stages/946/implement#comment
 status: Solved
 feedback:
   message: Congratulations!
-  time: Tue, 15 Jun 2021 11:12:07 UTC
+  time: Tue, 15 Jun 2021 11:45:07 UTC
 record: 2

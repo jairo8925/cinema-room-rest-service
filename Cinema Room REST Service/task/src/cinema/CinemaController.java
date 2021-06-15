@@ -1,12 +1,11 @@
 package cinema;
 
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 import java.util.Map;
 
-
 @RestController
-public class SeatsController {
+public class CinemaController {
 
     private final Cinema cinema = new Cinema(9, 9);
 
@@ -24,16 +23,22 @@ public class SeatsController {
         int row = seat.getRow();
         int column = seat.getColumn();
 
+        List<Seat> availableSeats = cinema.getAvailableSeats();
+
         if (row > 9 || row < 1 || column > 9 || column < 1) {
-            // return error
+            // respond with 400 status code if user passed a wrong row/column number
             throw new SeatNotAvailableException("The number of a row or a column is out of bounds!");
         }
+
         Seat selectedSeat = new Seat(row, column);
-        if (!cinema.getAvailableSeats().contains(selectedSeat)) {
-            // return error
+
+        // check if seat is already taken
+        if (!availableSeats.contains(selectedSeat)) {
+            // respond with 400 status code if seat is taken
             throw new SeatNotAvailableException("The ticket has been already purchased!");
         } else {
-            cinema.getAvailableSeats().remove(selectedSeat);
+            // remove seat from list once it is purchased
+            availableSeats.remove(selectedSeat);
             return Map.of(
                     "row", selectedSeat.getRow(),
                     "column", selectedSeat.getColumn(),

@@ -1,7 +1,6 @@
 package cinema;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +21,18 @@ public class Cinema {
         this.availableSeats = fillSeats();
     }
 
+    // fill each spot in cinema rows x columns grid with available seats
     private List<Seat> fillSeats() {
         List<Seat> seats = new ArrayList<>();
         for (int i = 1; i <= totalRows; i++) {
             for (int j = 1; j <= totalColumns; j++) {
-                Seat seat = new Seat(i, j);
-                seats.add(seat);
+                seats.add(new Seat(i, j));
             }
         }
         return seats;
     }
+
+    // getters and setters
 
     public int getTotalRows() {
         return totalRows;

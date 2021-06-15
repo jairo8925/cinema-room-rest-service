@@ -19,6 +19,8 @@ public class Seat {
         this.price = setPrice();
     }
 
+    // price is pre-determined by row
+    // number and thus it is immutable
     private int setPrice() {
         if (row <= 4) {
             return 10;
@@ -26,6 +28,8 @@ public class Seat {
             return 8;
         }
     }
+
+    // getters and setters
 
     public int getPrice() {
         return price;

@@ -2,6 +2,9 @@ package cinema;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/** This object is used for the response body of
+ * a 400 (Bad Request) status code
+ */
 public class Error {
 
     @JsonProperty("error")

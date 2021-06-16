@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * column number passed does not belong to any seat
  */
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class SeatNotAvailableException extends RuntimeException {
+public class CinemaException extends RuntimeException {
 
-    SeatNotAvailableException() {
+    CinemaException() {
         super();
     }
 
-    SeatNotAvailableException(String message) {
+    CinemaException(String message) {
         super(message);
     }
 

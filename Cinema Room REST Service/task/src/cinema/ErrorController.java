@@ -6,13 +6,11 @@ import org.springframework.web.bind.annotation.*;
 @RestControllerAdvice
 class ErrorController {
 
-    @ExceptionHandler(SeatNotAvailableException.class)
+    @ExceptionHandler(CinemaException.class)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    private Error handleErrorMessage(SeatNotAvailableException e) {
-        Error error = new Error();
-        error.setError(e.getMessage());
-        return error;
+    private Error handleErrorMessage(CinemaException e) {
+        return new Error(e.getMessage());
     }
 
 }

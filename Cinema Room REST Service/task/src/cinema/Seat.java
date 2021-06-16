@@ -11,13 +11,15 @@ public class Seat {
     private int column;
 
     @JsonProperty("price")
-    private final int price;
+    private int price;
 
     public Seat(int row, int column) {
         this.row = row;
         this.column = column;
         this.price = setPrice();
     }
+
+    public Seat() {}
 
     // price is pre-determined by row
     // number and thus it is immutable

@@ -20,6 +20,11 @@ public class Error {
         this.error = error;
     }
 
+    public Error(String error) {
+        this.error = error;
+    }
+
     public Error() {}
+
 
 }

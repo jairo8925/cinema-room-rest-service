@@ -307,7 +307,7 @@ files:
         }
     }
   learner_created: true
-- name: src/cinema/CinemaException.java
+- name: src/cinema/InvalidSeatException.java
   visible: true
   learner_created: true
 - name: src/cinema/Error.java

@@ -351,6 +351,349 @@ files:
         };
     }
   learner_created: false
+- name: src/cinema/Seat.java
+  visible: true
+  text: |
+    package cinema;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    public class Seat {
+
+        @JsonProperty("row")
+        private int row;
+
+        @JsonProperty("column")
+        private int column;
+
+        @JsonProperty("price")
+        private int price;
+
+        public Seat(int row, int column) {
+            this.row = row;
+            this.column = column;
+            this.price = setPrice();
+        }
+
+        public Seat() {}
+
+        // price is pre-determined by row
+        // number and thus it is immutable
+        private int setPrice() {
+            if (row <= 4) {
+                return 10;
+            } else {
+                return 8;
+            }
+        }
+
+        // getters and setters
+
+        public int getPrice() {
+            return price;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int getColumn() {
+            return column;
+        }
+
+        public void setRow(int row) {
+            this.row = row;
+        }
+
+        public void setColumn(int column) {
+            this.column = column;
+        }
+
+        public boolean equals(Object obj) {
+            if (obj instanceof Seat) {
+                Seat seat = (Seat) obj;
+                return seat.row == this.row && seat.column == this.column;
+            } else {
+                return false;
+            }
+        }
+    }
+  learner_created: true
+- name: src/cinema/ErrorController.java
+  visible: true
+  text: |
+    package cinema;
+
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.bind.annotation.*;
+
+    @RestControllerAdvice
+    class ErrorController {
+
+        @ExceptionHandler(CinemaException.class)
+        @ResponseBody
+        @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+        private Error handleErrorMessage(CinemaException e) {
+            return new Error(e.getMessage());
+        }
+
+    }
+  learner_created: true
+- name: src/cinema/Error.java
+  visible: true
+  text: |
+    package cinema;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    /** This object is used for the response body of
+     * a 400 (Bad Request) status code
+     */
+    public class Error {
+
+        @JsonProperty("error")
+        private String error;
+
+        // getters and setters
+
+        public String getError() {
+            return error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
+
+        public Error(String error) {
+            this.error = error;
+        }
+
+        public Error() {}
+
+
+    }
+  learner_created: true
+- name: src/cinema/Ticket.java
+  visible: true
+  text: |
+    package cinema;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    public class Ticket {
+
+        @JsonProperty("seat")
+        private Seat seat;
+
+        @JsonProperty("token")
+        private String token;
+
+        public Ticket(Seat seat, String token) {
+            this.seat = seat;
+            this.token = token;
+        }
+
+        public Ticket() {}
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public Seat getSeat() {
+            return seat;
+        }
+
+        public void setSeat(Seat seat) {
+            this.seat = seat;
+        }
+    }
+  learner_created: true
+- name: src/cinema/Cinema.java
+  visible: true
+  text: |
+    package cinema;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import java.util.ArrayList;
+    import java.util.List;
+
+    public class Cinema {
+
+        @JsonProperty("total_rows")
+        private int totalRows;
+
+        @JsonProperty("total_columns")
+        private int totalColumns;
+
+        @JsonProperty("available_seats")
+        private List<Seat> availableSeats;
+
+        public Cinema(int totalRows, int totalColumns) {
+            this.totalRows = totalRows;
+            this.totalColumns = totalColumns;
+            this.availableSeats = fillSeats();
+        }
+
+        // fill each spot in cinema rows x columns grid with available seats
+        private List<Seat> fillSeats() {
+            List<Seat> seats = new ArrayList<>();
+            for (int i = 1; i <= totalRows; i++) {
+                for (int j = 1; j <= totalColumns; j++) {
+                    seats.add(new Seat(i, j));
+                }
+            }
+            return seats;
+        }
+
+        // getters and setters
+
+        public int getTotalRows() {
+            return totalRows;
+        }
+
+        public int getTotalColumns() {
+            return totalColumns;
+        }
+
+        public List<Seat> getAvailableSeats() {
+            return availableSeats;
+        }
+
+        public void setTotalRows(int totalRows) {
+            this.totalRows = totalRows;
+        }
+
+        public void setTotalColumns(int totalColumns) {
+            this.totalColumns = totalColumns;
+        }
+
+        public void setAvailableSeats(List<Seat> availableSeats) {
+            this.availableSeats = availableSeats;
+        }
+    }
+  learner_created: true
+- name: src/cinema/CinemaController.java
+  visible: true
+  text: |
+    package cinema;
+
+    import org.springframework.web.bind.annotation.*;
+
+    import java.util.ArrayList;
+    import java.util.List;
+    import java.util.Map;
+    import java.util.UUID;
+
+    @RestController
+    public class CinemaController {
+
+        private final Cinema cinema = new Cinema(9, 9);
+        private final List<Ticket> ticketList = new ArrayList<>();
+
+        @GetMapping("/seats")
+        public Cinema getSeats() {
+            return this.cinema;
+        }
+
+        @PostMapping("/purchase")
+        public Map<String, ?> purchaseTicket(@RequestBody Seat seat) {
+            int row = seat.getRow();
+            int column = seat.getColumn();
+
+            List<Seat> availableSeats = cinema.getAvailableSeats();
+
+            if (row > 9 || row < 1 || column > 9 || column < 1) {
+                // respond with 400 status code if user passed a wrong row/column number
+                throw new CinemaException("The number of a row or a column is out of bounds!");
+            }
+
+            Seat selectedSeat = new Seat(row, column);
+
+            // check if seat is already taken
+            if (!availableSeats.contains(selectedSeat)) {
+                // respond with 400 status code if seat is taken
+                throw new CinemaException("The ticket has been already purchased!");
+            } else {
+                // remove seat from list once it is purchased
+                availableSeats.remove(selectedSeat);
+                // generate a random token
+                String token = UUID.randomUUID().toString();
+                // add bought ticket to the list of tickets
+                ticketList.add(new Ticket(selectedSeat, token));
+                return Map.of(
+                        "token", token,
+                        "ticket", selectedSeat
+                );
+            }
+        }
+
+        @PostMapping("/return")
+        public Map<String, ?> refundTicket(@RequestBody Ticket t) {
+            String token = t.getToken();
+            Ticket returned_ticket = null;
+
+            // find the ticket that the token belongs to
+            for (Ticket ticket : ticketList) {
+                if (ticket.getToken().equals(token)) {
+                    returned_ticket = ticket;
+                }
+            }
+
+            if (returned_ticket == null) {
+                // respond with 400 status code if token isn't valid
+                throw new CinemaException("Wrong token!");
+            } else {
+                // remove returned ticket from the ticket list
+                ticketList.remove(returned_ticket);
+                Seat seat = returned_ticket.getSeat();
+                // add the seat back to the available seats
+                cinema.getAvailableSeats().add(seat);
+                return Map.of(
+                        "returned_ticket", seat
+                );
+            }
+        }
+    }
+  learner_created: true
+- name: src/cinema/WrongPasswordException.java
+  visible: true
+  learner_created: true
+- name: src/cinema/InvalidSeatException.java
+  visible: true
+  text: |
+    package cinema;
+
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.bind.annotation.ResponseStatus;
+
+    /** This class is the exception that occurs if the ticket
+     * for the chair has already been purchased or the row and
+     * column number passed does not belong to any seat
+     */
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public class CinemaException extends RuntimeException {
+
+        CinemaException() {
+            super();
+        }
+
+        CinemaException(String message) {
+            super(message);
+        }
+
+    }
+  learner_created: true
+- name: src/cinema/InvalidTokenException.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/189/stages/948/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Well done! You finished the project. Select a new project on <a href="https://hyperskill.org/projects">JetBrains
+    Academy</a> to continue learning.
+  time: Wed, 16 Jun 2021 06:09:41 UTC
 record: -1

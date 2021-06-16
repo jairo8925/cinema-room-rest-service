@@ -1,5 +1,6 @@
 package cinema;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,8 +15,12 @@ public class CinemaController {
     private final List<Ticket> ticketList = new ArrayList<>();
 
     @GetMapping("/seats")
-    public Cinema getSeats() {
-        return this.cinema;
+    public Map<String, ?> getSeats() {
+        return Map.of(
+                "total_rows", cinema.getTotalRows(),
+                "total_columns", cinema.getTotalColumns(),
+                "available_seats", cinema.getAvailableSeats()
+        );
     }
 
     @PostMapping("/purchase")
@@ -27,7 +32,7 @@ public class CinemaController {
 
         if (row > 9 || row < 1 || column > 9 || column < 1) {
             // respond with 400 status code if user passed a wrong row/column number
-            throw new CinemaException("The number of a row or a column is out of bounds!");
+            throw new InvalidSeatException("The number of a row or a column is out of bounds!");
         }
 
         Seat selectedSeat = new Seat(row, column);
@@ -35,7 +40,7 @@ public class CinemaController {
         // check if seat is already taken
         if (!availableSeats.contains(selectedSeat)) {
             // respond with 400 status code if seat is taken
-            throw new CinemaException("The ticket has been already purchased!");
+            throw new InvalidSeatException("The ticket has been already purchased!");
         } else {
             // remove seat from list once it is purchased
             availableSeats.remove(selectedSeat);
@@ -64,7 +69,7 @@ public class CinemaController {
 
         if (returned_ticket == null) {
             // respond with 400 status code if token isn't valid
-            throw new CinemaException("Wrong token!");
+            throw new InvalidTokenException("Wrong token!");
         } else {
             // remove returned ticket from the ticket list
             ticketList.remove(returned_ticket);
@@ -76,4 +81,29 @@ public class CinemaController {
             );
         }
     }
+
+    @PostMapping("/stats")
+    public Map<String, ?> showStats(@RequestParam(required = false) String password) {
+        if (!"super_secret".equals(password)) {
+            // return error
+            throw new WrongPasswordException("The password is wrong!");
+        }
+
+        int income = 0;
+        for (Ticket t : ticketList) {
+            income += t.getSeat().getPrice();
+        }
+
+        int available_seats = cinema.getAvailableSeats().size();
+        int purchased_tickets = ticketList.size();
+
+        return Map.of(
+                "current_income", income,
+                "number_of_available_seats", available_seats,
+                "number_of_purchased_tickets", purchased_tickets
+        );
+    }
+
+
+
 }
